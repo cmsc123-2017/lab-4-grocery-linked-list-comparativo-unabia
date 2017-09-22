@@ -74,12 +74,18 @@ public class GroceryListLinked implements IGroceryList {
     return false;
   }
   
-  public void display() {
+   public void display() {
     GroceryNode current = head;
     System.out.println("Grocery Items: ");
-    while(current.getNext() != null){
-      System.out.println(current.getData().name+"\n");
-    }
+    while(current != null){
+      if(current.getData().isBought == true){
+        System.out.println("[x] " + current.getData().name + " " + current.getData().quantity);
+        current = current.getNext();
+      }else{
+        System.out.println("[ ] "+ current.getData().name + " " + current.getData().quantity);
+        current = current.getNext();
+      }
+      }
   }
 }
 
