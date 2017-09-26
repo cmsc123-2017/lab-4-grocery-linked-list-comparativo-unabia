@@ -17,6 +17,7 @@ public class GroceryListLinkedTest extends TestCase {
     GroceryItem m = new GroceryItem("Soap", 13);
     GroceryItem n = new GroceryItem("Shampoo", 14);
    
+
   public void testAddLessThanTen() {
     assertTrue(gll.add(a));
     assertTrue(gll.add(b));
@@ -29,11 +30,12 @@ public class GroceryListLinkedTest extends TestCase {
     assertTrue(gll.add(i));
     assertTrue(gll.add(j)); 
   }
-/*  public void testRemoveUnexistingItem(){ 
+
+  public void testRemoveUnexistingItem(){ 
     gll.add(a);
     gll.add(b);
     assertFalse(gll.remove(c.name));
-  }*/ 
+  }
   public void testRemoveFromEmptyList(){
     assertFalse(gll.remove(a.name));
   }
@@ -61,16 +63,19 @@ public class GroceryListLinkedTest extends TestCase {
     gll.add(e);
     assertTrue(gll.remove(e.name));
   }
+  
+  public void testRemoveOneElement(){
+    gll.add(a);
+    assertTrue(gll.remove(a.name));
+  }
   public void testIsBought(){
     gll.add(a);
     gll.add(b);
     gll.add(c);
     gll.add(d);
     gll.add(n);
-    gll.markAsBought("Milk"); 
-    gll.markAsBought("Shampoo");
-    assertTrue(a.isBought); 
-    assertFalse(b.isBought);
-    assertTrue(n.isBought);
+    assertTrue(gll.markAsBought("Milk")); 
+    assertTrue(gll.markAsBought("Shampoo"));
   }
+
 }

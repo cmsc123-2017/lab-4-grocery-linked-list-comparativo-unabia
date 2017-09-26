@@ -8,36 +8,31 @@ public class GroceryListLinked implements IGroceryList {
   public boolean add(GroceryItem item) {
     GroceryNode newNode = new GroceryNode(item, head);
     head = newNode;
+    size++;
     return true;
   }
+  
+  
   public boolean checkHead(){
     if(head == null)
       return false;
     return true;
   }
-  public boolean checkItem(String name){//checks if item exists in the list
-    GroceryNode current = head;
-    if(current.getData().name == name)
-      return true;
-    else{
-      current = findPriorItem(name);
-      if(current != null)
-        return true;
-      else
-        return false;
-    }
-  }
+  
+  // finds the item for convenience
   public GroceryNode findItem(String name){
-    GroceryNode current = head;//finds the item for convenience
+    GroceryNode current = head;
     while(current != null){
-      if(current.getData().name == name)
+      if(current.getData().name.equals(name))
         return current;
       current = current.getNext();
     }
     return current;
   }
+  
+  // method useful for remove coz it finds the item before the itemToBeRemoved.
   public GroceryNode findPriorItem(String name){
-    GroceryNode current = head;//method useful for remove coz it finds the item before the itemToBeRemoved.
+    GroceryNode current = head;
     while(current != null){
       if(current.getNext().getData().name == name)
         return current;
@@ -45,20 +40,24 @@ public class GroceryListLinked implements IGroceryList {
     }
     return current;
   }
-  public boolean remove(String name) {
+   public boolean remove(String name) {
     GroceryNode current = head;
-    if(checkHead() == false)//checking if list is empty
+    GroceryNode prev = head;
+    if(checkHead() == false) //checking if list is empty
       return false; 
     
-    if(current.getData().name == name){//this is for removing the head.
+    if(current.getData().name.equals(name)){ //this is for removing the head.
       head = current.next;
+      prev = null;
+      size--;
       return true;
-      
-    
     }else{  //this is for removing anynode in the middle.
-      if(checkItem(name)){ //checkpoint for item existence
+      if(findItem(name)!= null){ //checkpoint for item existence
+        prev = findItem(name);
         current = findPriorItem(name);
         current.setNext(current.getNext().getNext());
+        prev = null;
+        size--;
         return true;
       }
       else return false; //this is if the item doesn't exist and returns false directly.
@@ -78,15 +77,10 @@ public class GroceryListLinked implements IGroceryList {
     GroceryNode current = head;
     System.out.println("Grocery Items: ");
     while(current != null){
-      if(current.getData().isBought == true){
-        System.out.println("[x] " + current.getData().name + " " + current.getData().quantity);
-        current = current.getNext();
-      }else{
-        System.out.println("[ ] "+ current.getData().name + " " + current.getData().quantity);
-        current = current.getNext();
-      }
-      }
+     System.out.println(current.getData().toString());
+     current = current.next;
   }
+}
 }
 
 class GroceryNode {
